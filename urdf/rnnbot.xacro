@@ -1,0 +1,165 @@
+<?xml version="1.0" ?>
+<robot name="rnnbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find rnnbot_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find rnnbot_description)/urdf/rnnbot.trans" />
+<xacro:include filename="$(find rnnbot_description)/urdf/rnnbot.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.12527762536625361 0.07499999999999997 0.024736618472510664" rpy="0 0 0"/>
+    <mass value="2.691496900192634"/>
+    <inertia ixx="0.005655" iyy="0.014626" izz="0.01912" ixy="-0.0" iyz="-0.0" ixz="5.3e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find rnnbot_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find rnnbot_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lwheel_link_1">
+  <inertial>
+    <origin xyz="-5.287437154777308e-15 -0.015000000000000013 0.0" rpy="0 0 0"/>
+    <mass value="0.21693482671200906"/>
+    <inertia ixx="0.000153" iyy="0.000274" izz="0.000153" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.04 -0.19 -0.025" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find rnnbot_description)/meshes/lwheel_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.04 -0.19 -0.025" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find rnnbot_description)/meshes/lwheel_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="rwheel_link_1">
+  <inertial>
+    <origin xyz="-5.287437154777308e-15 0.015 0.0" rpy="0 0 0"/>
+    <mass value="0.21693482671200906"/>
+    <inertia ixx="0.000153" iyy="0.000274" izz="0.000153" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.04 0.04 -0.025" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find rnnbot_description)/meshes/rwheel_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.04 0.04 -0.025" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find rnnbot_description)/meshes/rwheel_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="rultrasonic_link_1">
+  <inertial>
+    <origin xyz="-0.022500000000000048 -0.006000000000000001 0.0" rpy="0 0 0"/>
+    <mass value="0.017560799999999998"/>
+    <inertia ixx="1e-06" iyy="4e-06" izz="3e-06" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.25 -0.0 -0.025" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find rnnbot_description)/meshes/rultrasonic_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.25 -0.0 -0.025" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find rnnbot_description)/meshes/rultrasonic_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="fultrasonic_link_1">
+  <inertial>
+    <origin xyz="0.006000000000000005 1.3877787807814457e-17 0.0" rpy="0 0 0"/>
+    <mass value="0.017560799999999988"/>
+    <inertia ixx="4e-06" iyy="1e-06" izz="3e-06" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.25 -0.075 -0.025" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find rnnbot_description)/meshes/fultrasonic_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.25 -0.075 -0.025" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find rnnbot_description)/meshes/fultrasonic_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lultrasonic_link_1">
+  <inertial>
+    <origin xyz="-0.022500000000000048 0.006000000000000033 0.0" rpy="0 0 0"/>
+    <mass value="0.017560799999999988"/>
+    <inertia ixx="1e-06" iyy="4e-06" izz="3e-06" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.25 -0.15 -0.025" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find rnnbot_description)/meshes/lultrasonic_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.25 -0.15 -0.025" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find rnnbot_description)/meshes/lultrasonic_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="lw_joint" type="continuous">
+  <origin xyz="0.04 0.19 0.025" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="lwheel_link_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+</joint>
+
+<joint name="rw_joint" type="continuous">
+  <origin xyz="0.04 -0.04 0.025" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="rwheel_link_1"/>
+  <axis xyz="0.0 -1.0 0.0"/>
+</joint>
+
+<joint name="lultra_joint" type="fixed">
+  <origin xyz="0.25 0.0 0.025" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="rultrasonic_link_1"/>
+</joint>
+
+<joint name="fultra_joint" type="fixed">
+  <origin xyz="0.25 0.075 0.025" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="fultrasonic_link_1"/>
+</joint>
+
+<joint name="rultra_joint" type="fixed">
+  <origin xyz="0.25 0.15 0.025" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="lultrasonic_link_1"/>
+</joint>
+
+</robot>
