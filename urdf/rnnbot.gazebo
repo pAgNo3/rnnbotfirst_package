@@ -1,52 +1,204 @@
 <?xml version="1.0" ?>
 <robot name="rnnbot" xmlns:xacro="http://www.ros.org/wiki/xacro" >
 
-<xacro:property name="body_color" value="Gazebo/Silver" />
+
 
 <gazebo>
   <plugin name="control" filename="libgazebo_ros_control.so"/>
 </gazebo>
 <gazebo reference="base_link">
-  <material>${body_color}</material>
-  <mu1>0.2</mu1>
-  <mu2>0.2</mu2>
+  <material>Gazebo/Orange</material>
+  <mu1>0.01</mu1>
+  <mu2>0.01</mu2>
   <self_collide>true</self_collide>
   <gravity>true</gravity>
 </gazebo>
 
 <gazebo reference="lwheel_link_1">
-  <material>${body_color}</material>
+  <material>Gazebo/Black</material>
   <mu1>0.2</mu1>
   <mu2>0.2</mu2>
   <self_collide>true</self_collide>
 </gazebo>
 
 <gazebo reference="rwheel_link_1">
-  <material>${body_color}</material>
+  <material>Gazebo/Black</material>
   <mu1>0.2</mu1>
   <mu2>0.2</mu2>
   <self_collide>true</self_collide>
 </gazebo>
 
 <gazebo reference="rultrasonic_link_1">
-  <material>${body_color}</material>
+  <material>Gazebo/Black</material>
   <mu1>0.2</mu1>
   <mu2>0.2</mu2>
   <self_collide>true</self_collide>
 </gazebo>
 
 <gazebo reference="fultrasonic_link_1">
-  <material>${body_color}</material>
+  <material>Gazebo/Black</material>
   <mu1>0.2</mu1>
   <mu2>0.2</mu2>
   <self_collide>true</self_collide>
 </gazebo>
 
 <gazebo reference="lultrasonic_link_1">
-  <material>${body_color}</material>
+  <material>Gazebo/Black</material>
   <mu1>0.2</mu1>
   <mu2>0.2</mu2>
   <self_collide>true</self_collide>
 </gazebo>
 
+<gazebo reference="lultrasonic_ray_frame">
+        <sensor type="ray" name="ultrasonic_sensor">
+            <pose>0 0 0 0 0 1.57</pose>
+            <!-- Set to true to see the sound cone as blue lasers in Gazebo! -->
+            <visualize>true</visualize> 
+            <update_rate>10</update_rate>
+            
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>5</samples>
+                        <resolution>1</resolution>
+                        <!-- A narrow 0.2 radian (~11 degree) cone -->
+                        <min_angle>-0.2617</min_angle>
+                        <max_angle>0.2617</max_angle>
+                    </horizontal>
+                    <vertical>
+                        <samples>5</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.0</min_angle>
+                        <max_angle>0.2617</max_angle>
+                    </vertical>
+                </scan>
+                <range>
+                    <!-- Range values for a standard HC-SR04 -->
+                    <min>0.02</min>
+                    <max>4.0</max>
+                    <resolution>0.01</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.01</stddev>
+                </noise>
+            </ray>
+
+            <!-- ROS 2 Integration -->
+            <plugin name="lultrasonic_plugin" filename="libgazebo_ros_ray_sensor.so">
+                <ros>
+                    <!-- The topic name you will listen to -->
+                    <remapping>~/out:=/lultrasonic/range</remapping>
+                </ros>
+                <!-- Output as a Range message, not a LaserScan -->
+                <output_type>sensor_msgs/Range</output_type>
+                <radiation_type>ultrasound</radiation_type>
+                <frame_name>lultrasonic_ray_frame</frame_name>
+                
+            </plugin>
+       </sensor>
+</gazebo>
+
+<gazebo reference="rultrasonic_ray_frame">
+        <sensor type="ray" name="ultrasonic_sensor">
+            <pose>0 0 0 0 0 1.57</pose>
+            <!-- Set to true to see the sound cone as blue lasers in Gazebo! -->
+            <visualize>true</visualize> 
+            <update_rate>10</update_rate>
+            
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>5</samples>
+                        <resolution>1</resolution>
+                        <!-- A narrow 0.2 radian (~11 degree) cone -->
+                        <min_angle>-0.2617</min_angle>
+                        <max_angle>0.2617</max_angle>
+                    </horizontal>
+                    <vertical>
+                        <samples>5</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.0</min_angle>
+                        <max_angle>0.2617</max_angle>
+                    </vertical>
+                </scan>
+                <range>
+                    <!-- Range values for a standard HC-SR04 -->
+                    <min>0.02</min>
+                    <max>4.0</max>
+                    <resolution>0.01</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.01</stddev>
+                </noise>
+            </ray>
+
+            <!-- ROS 2 Integration -->
+            <plugin name="rultrasonic_plugin" filename="libgazebo_ros_ray_sensor.so">
+                <ros>
+                    <!-- The topic name you will listen to -->
+                    <remapping>~/out:=/rultrasonic/range</remapping>
+                </ros>
+                <!-- Output as a Range message, not a LaserScan -->
+                <output_type>sensor_msgs/Range</output_type>
+                <radiation_type>ultrasound</radiation_type>
+                <frame_name>rultrasonic_ray_frame</frame_name>
+                
+            </plugin>
+       </sensor>
+</gazebo>
+
+<gazebo reference="fultrasonic_ray_frame">
+        <sensor type="ray" name="ultrasonic_sensor">
+            <pose>0 0 0 0 0 1.57</pose>
+            <!-- Set to true to see the sound cone as blue lasers in Gazebo! -->
+            <visualize>true</visualize> 
+            <update_rate>10</update_rate>
+            
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>5</samples>
+                        <resolution>1</resolution>
+                        <!-- A narrow 0.2 radian (~11 degree) cone -->
+                        <min_angle>-0.2617</min_angle>
+                        <max_angle>0.2617</max_angle>
+                    </horizontal>
+                    <vertical>
+                        <samples>5</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.0</min_angle>
+                        <max_angle>0.2617</max_angle>
+                    </vertical>
+                </scan>
+                <range>
+                    <!-- Range values for a standard HC-SR04 -->
+                    <min>0.02</min>
+                    <max>4.0</max>
+                    <resolution>0.01</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.01</stddev>
+                </noise>
+            </ray>
+
+            <!-- ROS 2 Integration -->
+            <plugin name="fultrasonic_plugin" filename="libgazebo_ros_ray_sensor.so">
+                <ros>
+                    <!-- The topic name you will listen to -->
+                    <remapping>~/out:=/fultrasonic/range</remapping>
+                </ros>
+                <!-- Output as a Range message, not a LaserScan -->
+                <output_type>sensor_msgs/Range</output_type>
+                <radiation_type>ultrasound</radiation_type>
+                <frame_name>fultrasonic_ray_frame</frame_name>
+
+            </plugin>
+       </sensor>
+</gazebo>
 </robot>

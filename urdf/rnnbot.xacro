@@ -4,6 +4,7 @@
 <xacro:include filename="$(find rnnbot_description)/urdf/materials.xacro" />
 <xacro:include filename="$(find rnnbot_description)/urdf/rnnbot.trans" />
 <xacro:include filename="$(find rnnbot_description)/urdf/rnnbot.gazebo" />
+<xacro:include filename="$(find rnnbot_description)/urdf/gazebo_control.xacro" />
 <link name="base_link">
   <inertial>
     <origin xyz="0.12527762536625361 0.07499999999999997 0.024736618472510664" rpy="0 0 0"/>
@@ -15,7 +16,7 @@
     <geometry>
       <mesh filename="file://$(find rnnbot_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="yellow"/>
   </visual>
   <collision>
     <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -36,7 +37,7 @@
     <geometry>
       <mesh filename="file://$(find rnnbot_description)/meshes/lwheel_link_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="black"/>
   </visual>
   <collision>
     <origin xyz="-0.04 -0.19 -0.025" rpy="0 0 0"/>
@@ -45,6 +46,7 @@
     </geometry>
   </collision>
 </link>
+
 
 <link name="rwheel_link_1">
   <inertial>
@@ -57,7 +59,7 @@
     <geometry>
       <mesh filename="file://$(find rnnbot_description)/meshes/rwheel_link_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="black"/>
   </visual>
   <collision>
     <origin xyz="-0.04 0.04 -0.025" rpy="0 0 0"/>
@@ -66,6 +68,7 @@
     </geometry>
   </collision>
 </link>
+
 
 <link name="rultrasonic_link_1">
   <inertial>
@@ -78,7 +81,7 @@
     <geometry>
       <mesh filename="file://$(find rnnbot_description)/meshes/rultrasonic_link_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="black"/>
   </visual>
   <collision>
     <origin xyz="-0.25 -0.0 -0.025" rpy="0 0 0"/>
@@ -87,6 +90,7 @@
     </geometry>
   </collision>
 </link>
+
 
 <link name="fultrasonic_link_1">
   <inertial>
@@ -99,7 +103,7 @@
     <geometry>
       <mesh filename="file://$(find rnnbot_description)/meshes/fultrasonic_link_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="black"/>
   </visual>
   <collision>
     <origin xyz="-0.25 -0.075 -0.025" rpy="0 0 0"/>
@@ -108,6 +112,7 @@
     </geometry>
   </collision>
 </link>
+
 
 <link name="lultrasonic_link_1">
   <inertial>
@@ -120,7 +125,7 @@
     <geometry>
       <mesh filename="file://$(find rnnbot_description)/meshes/lultrasonic_link_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="black"/>
   </visual>
   <collision>
     <origin xyz="-0.25 -0.15 -0.025" rpy="0 0 0"/>
@@ -129,6 +134,43 @@
     </geometry>
   </collision>
 </link>
+
+<link name="lultrasonic_ray_frame"/>
+
+    <!-- 2. The Joint that twists the invisible frame -->
+<joint name="lultrasonic_ray_joint" type="fixed">
+        <parent link="lultrasonic_link_1"/> <!-- Attached to your physical box -->
+        <child link="lultrasonic_ray_frame"/>
+        
+        <!-- Rotate the invisible frame here! -->
+        <!-- Example: Twist 90 degrees to the left (Yaw: 1.57) -->
+        <origin xyz="0 0 0" rpy="0 0 1.57"/> 
+</joint>
+
+<link name="fultrasonic_ray_frame"/>
+
+    <!-- 2. The Joint that twists the invisible frame -->
+<joint name="fultrasonic_ray_joint" type="fixed">
+        <parent link="fultrasonic_link_1"/> <!-- Attached to your physical box -->
+        <child link="fultrasonic_ray_frame"/>
+        
+        <!-- Rotate the invisible frame here! -->
+        <!-- Example: Twist 90 degrees to the left (Yaw: 1.57) -->
+        <origin xyz="0 0 0" rpy="0 0 0"/> 
+</joint>
+
+<link name="rultrasonic_ray_frame"/>
+
+    <!-- 2. The Joint that twists the invisible frame -->
+<joint name="rultrasonic_ray_joint" type="fixed">
+        <parent link="rultrasonic_link_1"/> <!-- Attached to your physical box -->
+        <child link="rultrasonic_ray_frame"/>
+        
+        <!-- Rotate the invisible frame here! -->
+        <!-- Example: Twist 90 degrees to the left (Yaw: 1.57) -->
+        <origin xyz="0 0 0" rpy="0 0 -1.57"/> 
+</joint>
+
 
 <joint name="lw_joint" type="continuous">
   <origin xyz="0.04 0.19 0.025" rpy="0 0 0"/>
@@ -141,10 +183,10 @@
   <origin xyz="0.04 -0.04 0.025" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="rwheel_link_1"/>
-  <axis xyz="0.0 -1.0 0.0"/>
+  <axis xyz="0.0 1.0 0.0"/>
 </joint>
 
-<joint name="lultra_joint" type="fixed">
+<joint name="rultra_joint" type="fixed">
   <origin xyz="0.25 0.0 0.025" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="rultrasonic_link_1"/>
@@ -156,7 +198,7 @@
   <child link="fultrasonic_link_1"/>
 </joint>
 
-<joint name="rultra_joint" type="fixed">
+<joint name="lultra_joint" type="fixed">
   <origin xyz="0.25 0.15 0.025" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="lultrasonic_link_1"/>
